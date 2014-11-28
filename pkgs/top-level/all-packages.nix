@@ -647,6 +647,8 @@ let
   btrfsProgs = callPackage ../tools/filesystems/btrfsprogs { };
   btrfsProgs-3_16 = callPackage ../tools/filesystems/btrfsprogs/3.16.nix { };
 
+  bugseverywhere = callPackage ../development/tools/bugseverywhere { };
+
   bwm_ng = callPackage ../tools/networking/bwm-ng { };
 
   byobu = callPackage ../tools/misc/byobu { };
