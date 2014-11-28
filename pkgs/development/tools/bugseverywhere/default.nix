@@ -1,31 +1,20 @@
-let
-  pkgs = import <nixpkgs> {};
-in
-  { stdenv ? pkgs.stdenv, python ? pkgs.python, pythonPackages ? pkgs.pythonPackages}:
+{ fetchgit, pythonPackages, buildPythonPackage }:
  
-stdenv.mkDerivation {
+buildPythonPackage {
   name = "bugseverywhere";
   version = "2014-11-28";
 
-  src = pkgs.fetchgit {
+  src = fetchgit {
     url = git://gitorious.org/be/be.git;
     rev = "4980830";
     sha256 = "0xy085sfd9dy8bg1ngw9svll96xyxck2yylq7c6jw3lpg7b71if7";
   };
 
-  buildInputs = [
-    pkgs.git
-    python
-    #pythonPackages.pyyaml
-    #pythonPackages.cherrypy
-    #pythonPackages.jinja2
+  propagatedBuildInputs = [
+    pythonPackages.python
+    pythonPackages.wrapPython
+    pythonPackages.jinja2
   ];
-
-  #makefile = "Makefile";
-
-  buildPhase = ''
-    python setup.py install
-  '';
 
   meta = {
     description = "Bugs Everywhere is a distributed bugtracker, designed to complement distributed revision control systems.";
