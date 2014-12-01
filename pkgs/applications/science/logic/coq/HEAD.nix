@@ -17,7 +17,7 @@ stdenv.mkDerivation {
 
   src = fetchgit {
     url = git://scm.gforge.inria.fr/coq/coq.git;
-    rev = "52f51fb385d6a1c90bd7d055185fee50ef2670be";
+    rev = "7008576175028838d5d7ba899dbc44d04e2d23c1";
     sha256 = "0pgp59j2j8vk7nmcja5smly39dpkqfhpp29wpsn71piq6n52pql3";
   };
 

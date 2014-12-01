@@ -1,10 +1,10 @@
 # - coqide compilation can be disabled by setting lablgtk to null;
 
-{stdenv, fetchurl, pkgconfig, writeText, ocaml, findlib, camlp5, ncurses, lablgtk ? null}:
+{stdenv, fetchgit, writeText, pkgconfig, ocaml, findlib, camlp5, ncurses, gcc, lablgtk ? null}:
 
 let
-  version = "8.4pl5";
-  coq-version = "8.4";
+  version = "8.5pre-52f51fb3";
+  coq-version = "8.5";
   buildIde = lablgtk != null;
   ideFlags = if buildIde then "-lablgtkdir ${lablgtk}/lib/ocaml/*/site-lib/lablgtk2 -coqide opt" else "";
 in
@@ -15,34 +15,25 @@ stdenv.mkDerivation {
   inherit coq-version;
   inherit ocaml camlp5;
 
-  src = fetchurl {
-    url = "http://coq.inria.fr/distrib/V${version}/files/coq-${version}.tar.gz";
-    sha256 = "0iajsabyrgypk1ncm0kqcxqv02k24xa1bayaxacjgmsqiavmm09m";
+  src = fetchgit {
+    url = git://scm.gforge.inria.fr/coq/coq.git;
+    rev = "7008576175028838d5d7ba899dbc44d04e2d23c1";
+    sha256 = "0ckg0b2j3sxzkzlj66l9cgws4ipld90h6h2qkkys84ry2ldfn5zr";
   };
 
-  buildInputs = [ pkgconfig ocaml findlib camlp5 ncurses lablgtk ];
+  buildInputs = [ pkgconfig ocaml findlib camlp5 ncurses lablgtk gcc ];
 
-  patches = [ ./configure.patch ];
+  NIX_LDFLAGS="-lgcc_s";
+
+  patches = [ ./no-codesign.patch ];
 
   postPatch = ''
     UNAME=$(type -tp uname)
     RM=$(type -tp rm)
     substituteInPlace configure --replace "/bin/uname" "$UNAME"
     substituteInPlace tools/beautify-archive --replace "/bin/rm" "$RM"
+    substituteInPlace Makefile.build --replace "ifeq (\$(ARCH),Darwin)" "ifeq (\$(ARCH),Darwinx)"
   '';
-
-  preConfigure = ''
-    configureFlagsArray=(
-      -opt
-      -camldir ${ocaml}/bin
-      -camlp5dir $(ocamlfind query camlp5)
-      ${ideFlags}
-    )
-  '';
-
-  prefixKey = "-prefix ";
-
-  buildFlags = "revision coq coqide";
 
   setupHook = writeText "setupHook.sh" ''
     addCoqPath () {
@@ -54,8 +45,19 @@ stdenv.mkDerivation {
     envHooks=(''${envHooks[@]} addCoqPath)
   '';
 
+  preConfigure = ''
+    configureFlagsArray=(
+      -opt
+      ${ideFlags}
+    )
+  '';
+
+  prefixKey = "-prefix ";
+
+  buildFlags = "revision coq coqide";
+
   meta = with stdenv.lib; {
-    description = "Formal proof management system";
+    description = "Coq proof assistant";
     longDescription = ''
       Coq is a formal proof management system.  It provides a formal language
       to write mathematical definitions, executable algorithms and theorems
