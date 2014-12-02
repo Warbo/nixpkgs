@@ -17,8 +17,8 @@ stdenv.mkDerivation {
 
   src = fetchgit {
     url = git://scm.gforge.inria.fr/coq/coq.git;
-    rev = "7008576175028838d5d7ba899dbc44d04e2d23c1";
-    sha256 = "0ckg0b2j3sxzkzlj66l9cgws4ipld90h6h2qkkys84ry2ldfn5zr";
+    rev = "894a3d16471f19bd527730490ea242e218b62ff6";
+    sha256 = "0a6afadqpj9hb2pkcjmccwv3vc5najg8szggab88v0h9wn6b6m4d";
   };
 
   buildInputs = [ pkgconfig ocaml findlib camlp5 ncurses lablgtk gcc ];
