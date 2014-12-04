@@ -12078,8 +12078,8 @@ let
   alt-ergo = callPackage ../applications/science/logic/alt-ergo {};
 
   coq = callPackage ../applications/science/logic/coq {
-    inherit (ocamlPackages_4_01_0) ocaml findlib lablgtk;
-    camlp5 = ocamlPackages_4_01_0.camlp5_transitional;
+    inherit (ocamlPackages) findlib lablgtk;
+    camlp5 = ocamlPackages.camlp5_transitional;
   };
 
   coq_HEAD = callPackage ../applications/science/logic/coq/HEAD.nix {
@@ -12110,6 +12110,8 @@ let
     mathcomp = callPackage ../development/coq-modules/mathcomp {};
 
     paco = callPackage ../development/coq-modules/paco {};
+
+    pidetop = callPackage ../development/coq-modules/pidetop {};
 
     ssreflect = callPackage ../development/coq-modules/ssreflect {};
 
