@@ -10310,6 +10310,9 @@ let
   namecoin = callPackage ../applications/misc/namecoin { };
   namecoinqt = callPackage ../applications/misc/namecoin/qt.nix { };
 
+  panhandle = callPackage ../applications/office/panhandle { };
+  panpipe = callPackage ../applications/office/panpipe { };
+
   pcmanfm = callPackage ../applications/misc/pcmanfm { };
 
   ruby_gpgme = callPackage ../development/libraries/ruby_gpgme {
@@ -11092,6 +11095,8 @@ let
   weston = callPackage ../applications/window-managers/weston {
     freerdp = freerdpUnstable;
   };
+
+  whitey = callPackage ../applications/video/whitey { };
 
   windowmaker = callPackage ../applications/window-managers/windowmaker { };
 
