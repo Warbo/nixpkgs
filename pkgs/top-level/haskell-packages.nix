@@ -249,6 +249,8 @@ self : let callPackage = x : y : modifyPrio (newScope self x y); in
   binary_0_7_2_2 = callPackage ../development/libraries/haskell/binary/0.7.2.2.nix {};
   binary = null;                # core package since ghc >= 7.2.x
 
+  binaryStrict = callPackage ../development/libraries/haskell/binary-strict {};
+
   binaryConduit = callPackage ../development/libraries/haskell/binary-conduit {};
 
   binaryShared = callPackage ../development/libraries/haskell/binary-shared {};
@@ -260,6 +262,8 @@ self : let callPackage = x : y : modifyPrio (newScope self x y); in
   bindingsLibusb = callPackage ../development/libraries/haskell/bindings-libusb {
     libusb = pkgs.libusb1;
   };
+
+  bindingsPortaudio = callPackage ../development/libraries/haskell/bindings-portaudio {};
 
   bindingsPosix = callPackage ../development/libraries/haskell/bindings-posix {};
 
@@ -340,6 +344,8 @@ self : let callPackage = x : y : modifyPrio (newScope self x y); in
   bytestringProgress = callPackage ../development/libraries/haskell/bytestring-progress {};
 
   bzlib = callPackage ../development/libraries/haskell/bzlib {};
+
+  call = callPackage ../development/libraries/haskell/call {};
 
   c2hs = callPackage ../development/tools/haskell/c2hs {};
 
@@ -773,6 +779,8 @@ self : let callPackage = x : y : modifyPrio (newScope self x y); in
   enumset = callPackage ../development/libraries/haskell/enumset {};
 
   entropy = callPackage ../development/libraries/haskell/entropy {};
+
+  elevator = callPackage ../development/libraries/haskell/elevator {};
 
   equationalReasoning = callPackage ../development/libraries/haskell/equational-reasoning {};
 
@@ -1340,6 +1348,8 @@ self : let callPackage = x : y : modifyPrio (newScope self x y); in
 
   hspecDiscover = callPackage ../development/libraries/haskell/hspec-discover {};
 
+  hspecLaws = callPackage ../development/libraries/haskell/hspec-laws {};
+
   hstatsd = callPackage ../development/libraries/haskell/hstatsd {};
 
   hsyslog = callPackage ../development/libraries/haskell/hsyslog {};
@@ -1439,10 +1449,6 @@ self : let callPackage = x : y : modifyPrio (newScope self x y); in
   ivor = callPackage ../development/libraries/haskell/ivor {};
 
   ivory = callPackage ../development/libraries/haskell/ivory {};
-
-  ixdopp = callPackage ../development/libraries/haskell/ixdopp {
-    preprocessorTools = self.preprocessorTools_0_1_3;
-  };
 
   ixset = callPackage ../development/libraries/haskell/ixset {};
 
@@ -1562,7 +1568,11 @@ self : let callPackage = x : y : modifyPrio (newScope self x y); in
 
   liftedBase = callPackage ../development/libraries/haskell/lifted-base {};
 
+  linAlg = callPackage ../development/libraries/haskell/lin-alg {};
+
   linear = callPackage ../development/libraries/haskell/linear {};
+
+  linearOpenGL = callPackage ../development/libraries/haskell/linear-opengl {};
 
   linuxInotify = callPackage ../development/libraries/haskell/linux-inotify {};
 
@@ -1760,6 +1770,10 @@ self : let callPackage = x : y : modifyPrio (newScope self x y); in
 
   murmurHash = callPackage ../development/libraries/haskell/murmur-hash {};
 
+  mvc = callPackage ../development/libraries/haskell/mvc {};
+
+  mvcUpdates = callPackage ../development/libraries/haskell/mvc-updates {};
+
   mwcRandom = callPackage ../development/libraries/haskell/mwc-random {};
 
   mysql = callPackage ../development/libraries/haskell/mysql {
@@ -1843,6 +1857,8 @@ self : let callPackage = x : y : modifyPrio (newScope self x y); in
   ObjectName = callPackage ../development/libraries/haskell/ObjectName {};
 
   oeis = callPackage ../development/libraries/haskell/oeis {};
+
+  ofx = callPackage ../development/libraries/haskell/ofx {};
 
   opaleye = callPackage ../development/libraries/haskell/opaleye {};
 
@@ -2009,9 +2025,7 @@ self : let callPackage = x : y : modifyPrio (newScope self x y); in
 
   preludeSafeenum = callPackage ../development/libraries/haskell/prelude-safeenum {};
 
-  preprocessorTools_0_1_3 = callPackage ../development/libraries/haskell/preprocessor-tools/0.1.3.nix {};
-  preprocessorTools_1_0_1 = callPackage ../development/libraries/haskell/preprocessor-tools/1.0.1.nix {};
-  preprocessorTools = self.preprocessorTools_1_0_1;
+  preprocessorTools = callPackage ../development/libraries/haskell/preprocessor-tools {};
 
   presburger = callPackage ../development/libraries/haskell/presburger {};
 
