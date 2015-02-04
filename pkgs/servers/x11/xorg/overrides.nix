@@ -49,6 +49,12 @@ in
     inherit (xorg) xorgcffiles;
     x11BuildHook = ./imake.sh;
     patches = [./imake.patch];
+    setupHook = if stdenv.isDarwin then ./darwin-imake-setup-hook.sh else null;
+    CFLAGS = [ "-DIMAKE_COMPILETIME_CPP=\\\"${if stdenv.isDarwin
+      then "${args.tradcpp}/bin/cpp"
+      else "gcc"}\\\""
+    ];
+    tradcpp = if stdenv.isDarwin then args.tradcpp else null;
   };
 
   mkfontdir = attrs: attrs // {
@@ -266,7 +272,7 @@ in
         recordproto libXext pixman libXfont
         damageproto xcmiscproto  bigreqsproto
         libpciaccess inputproto xextproto randrproto renderproto presentproto
-        dri2proto kbproto xineramaproto resourceproto scrnsaverproto videoproto
+        dri2proto dri3proto kbproto xineramaproto resourceproto scrnsaverproto videoproto
       ];
       commonPatches = [ ./xorgserver-xkbcomp-path.patch ];
       # XQuartz requires two compilations: the first to get X / XQuartz,

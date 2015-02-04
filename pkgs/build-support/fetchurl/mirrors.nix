@@ -53,6 +53,7 @@ rec {
 
   # GnuPG.
   gnupg = [
+    http://gd.tuwien.ac.at/privacy/gnupg/
     ftp://gd.tuwien.ac.at/privacy/gnupg/
     ftp://gnupg.x-zone.org/pub/gnupg/
     ftp://ftp.gnupg.cz/pub/gcrypt/
@@ -261,7 +262,6 @@ rec {
 
   # Apache mirrors (see http://www.apache.org/mirrors/).
   apache = [
-    http://apache.cs.uu.nl/dist/
     http://www.eu.apache.org/dist/
     ftp://ftp.inria.fr/pub/Apache/
     http://apache.cict.fr/
@@ -271,6 +271,7 @@ rec {
     http://www.apache.org/dist/
     http://archive.apache.org/dist/ # fallback for old releases
     ftp://ftp.funet.fi/pub/mirrors/apache.org/
+    http://apache.cs.uu.nl/dist/
   ];
 
   postgresql = [
@@ -426,4 +427,18 @@ rec {
     http://sagemath.org/src-old/
   ];
 
+  # MySQL mirrors
+  mysql = [
+    http://mysql.mirrors.pair.com/Downloads/
+    http://cdn.mysql.com/Downloads/
+  ];
+
+  # OpenBSD mirrors
+  openbsd = [
+    http://ftp.openbsd.org/pub/OpenBSD/
+    ftp://ftp.nluug.nl/pub/OpenBSD/
+    ftp://ftp-stud.fht-esslingen.de/pub/OpenBSD/
+    ftp://ftp.halifax.rwth-aachen.de/pub/OpenBSD/
+    ftp://mirror.switch.ch/pub/OpenBSD/
+  ];
 }

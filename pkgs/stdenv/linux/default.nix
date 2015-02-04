@@ -55,6 +55,7 @@ rec {
     # Needed by the GCC wrapper.
     langC = true;
     langCC = true;
+    isGNU = true;
   };
 
 
@@ -83,12 +84,12 @@ rec {
           curl = bootstrapTools;
         };
 
-        gcc = if isNull gccPlain
-              then "/no-such-path"
-              else lib.makeOverridable (import ../../build-support/gcc-wrapper) {
+        cc = if isNull gccPlain
+             then "/no-such-path"
+             else lib.makeOverridable (import ../../build-support/cc-wrapper) {
           nativeTools = false;
           nativeLibc = false;
-          gcc = gccPlain;
+          cc = gccPlain;
           libc = glibc;
           inherit binutils coreutils;
           name = name;
@@ -206,10 +207,10 @@ rec {
       # reduces the size of the stdenv closure.
       gmp = pkgs.gmp.override { stdenv = pkgs.makeStaticLibraries pkgs.stdenv; };
       mpfr = pkgs.mpfr.override { stdenv = pkgs.makeStaticLibraries pkgs.stdenv; };
-      mpc = pkgs.mpc.override { stdenv = pkgs.makeStaticLibraries pkgs.stdenv; };
+      libmpc = pkgs.libmpc.override { stdenv = pkgs.makeStaticLibraries pkgs.stdenv; };
       isl = pkgs.isl.override { stdenv = pkgs.makeStaticLibraries pkgs.stdenv; };
       cloog = pkgs.cloog.override { stdenv = pkgs.makeStaticLibraries pkgs.stdenv; };
-      gccPlain = pkgs.gcc.gcc;
+      gccPlain = pkgs.gcc.cc;
     };
     extraBuildInputs = [ stage2.pkgs.patchelf stage2.pkgs.paxctl ];
   };
@@ -229,10 +230,10 @@ rec {
       # other purposes (binutils and top-level pkgs) too.
       inherit (stage3.pkgs) gettext gnum4 gmp perl glibc zlib linuxHeaders;
 
-      gcc = lib.makeOverridable (import ../../build-support/gcc-wrapper) {
+      gcc = lib.makeOverridable (import ../../build-support/cc-wrapper) {
         nativeTools = false;
         nativeLibc = false;
-        gcc = stage4.stdenv.gcc.gcc;
+        cc = stage4.stdenv.cc.cc;
         libc = stage4.pkgs.glibc;
         inherit (stage4.pkgs) binutils coreutils;
         name = "";
@@ -267,9 +268,9 @@ rec {
 
     extraBuildInputs = [ stage4.pkgs.patchelf stage4.pkgs.paxctl ];
 
-    gcc = stage4.pkgs.gcc;
+    cc = stage4.pkgs.gcc;
 
-    shell = gcc.shell;
+    shell = cc.shell;
 
     inherit (stage4.stdenv) fetchurlBoot;
 
@@ -282,11 +283,14 @@ rec {
     allowedRequisites = with stage4.pkgs;
       [ gzip bzip2 xz bash binutils coreutils diffutils findutils gawk
         glibc gnumake gnused gnutar gnugrep gnupatch patchelf attr acl
-        paxctl zlib pcre linuxHeaders ed gcc gcc.gcc libsigsegv
+        paxctl zlib pcre linuxHeaders ed gcc gcc.cc libsigsegv
       ];
 
     overrides = pkgs: {
-      inherit gcc;
+      inherit cc;
+
+      gcc = cc;
+
       inherit (stage4.pkgs)
         gzip bzip2 xz bash binutils coreutils diffutils findutils gawk
         glibc gnumake gnused gnutar gnugrep gnupatch patchelf

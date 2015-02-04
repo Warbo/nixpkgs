@@ -1,8 +1,8 @@
 { stdenv, fetchFromGitHub, nodejs, which, python27, utillinux }:
 
 let
-  version = "12"; # see ${src}/util/version/Version.h
-  date = "20141121";
+  version = "15"; # see ${src}/util/version/Version.h
+  date = "20150130";
 in
 stdenv.mkDerivation {
   name = "cjdns-${version}-${date}";
@@ -10,8 +10,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "cjdelisle";
     repo = "cjdns";
-    rev = "f176d2c0271d764412bd13c7adf7ea475fa25e0f";
-    sha256 = "02vp917pr0kkcg41ani2azfbmdv1rjghmlrc7nc07ckkcqg6sk0y";
+    rev = "b7681f601dc0ba84c6c710061089f9898247ba4e";
+    sha256 = "0r59j9x5i1nkd6k8172l9iq95f6c22ymmkrm9nxwxr5dp2bj0qn5";
   };
 
   buildInputs = [ which python27 nodejs ] ++
@@ -26,7 +26,7 @@ stdenv.mkDerivation {
     sed -i 's,/usr/bin/env python,'$(type -P python), \
       $(find contrib -type f)
     mkdir -p $out/share/cjdns
-    cp -R contrib node_build node_modules $out/share/cjdns/
+    cp -R contrib tools node_build node_modules $out/share/cjdns/
   '';
 
   meta = with stdenv.lib; {

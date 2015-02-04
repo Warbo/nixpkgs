@@ -52,6 +52,8 @@ rec {
         cp -d ${glibc}/lib/libpthread*.so* $out/lib
         cp -d ${glibc}/lib/libnsl*.so* $out/lib
         cp -d ${glibc}/lib/libutil*.so* $out/lib
+        cp -d ${glibc}/lib/libnss*.so* $out/lib
+        cp -d ${glibc}/lib/libresolv*.so* $out/lib
         cp -d ${glibc}/lib/crt?.o $out/lib
 
         cp -rL ${glibc}/include $out
@@ -87,12 +89,12 @@ rec {
         cp -d ${gnugrep.pcre}/lib/libpcre*.so* $out/lib # needed by grep
 
         # Copy what we need of GCC.
-        cp -d ${gcc.gcc}/bin/gcc $out/bin
-        cp -d ${gcc.gcc}/bin/cpp $out/bin
-        cp -d ${gcc.gcc}/bin/g++ $out/bin
-        cp -d ${gcc.gcc}/lib*/libgcc_s.so* $out/lib
-        cp -d ${gcc.gcc}/lib*/libstdc++.so* $out/lib
-        cp -rd ${gcc.gcc}/lib/gcc $out/lib
+        cp -d ${gcc.cc}/bin/gcc $out/bin
+        cp -d ${gcc.cc}/bin/cpp $out/bin
+        cp -d ${gcc.cc}/bin/g++ $out/bin
+        cp -d ${gcc.cc}/lib*/libgcc_s.so* $out/lib
+        cp -d ${gcc.cc}/lib*/libstdc++.so* $out/lib
+        cp -rd ${gcc.cc}/lib/gcc $out/lib
         chmod -R u+w $out/lib
         rm -f $out/lib/gcc/*/*/include*/linux
         rm -f $out/lib/gcc/*/*/include*/sound
@@ -100,18 +102,18 @@ rec {
         rm -f $out/lib/gcc/*/*/include-fixed/asm
         rm -rf $out/lib/gcc/*/*/plugin
         #rm -f $out/lib/gcc/*/*/*.a
-        cp -rd ${gcc.gcc}/libexec/* $out/libexec
+        cp -rd ${gcc.cc}/libexec/* $out/libexec
         chmod -R u+w $out/libexec
         rm -rf $out/libexec/gcc/*/*/plugin
         mkdir $out/include
-        cp -rd ${gcc.gcc}/include/c++ $out/include
+        cp -rd ${gcc.cc}/include/c++ $out/include
         chmod -R u+w $out/include
         rm -rf $out/include/c++/*/ext/pb_ds
         rm -rf $out/include/c++/*/ext/parallel
 
         cp -d ${gmpxx}/lib/libgmp*.so* $out/lib
         cp -d ${mpfr}/lib/libmpfr*.so* $out/lib
-        cp -d ${mpc}/lib/libmpc*.so* $out/lib
+        cp -d ${libmpc}/lib/libmpc*.so* $out/lib
         cp -d ${zlib}/lib/libz.so* $out/lib
         cp -d ${libelf}/lib/libelf.so* $out/lib
 

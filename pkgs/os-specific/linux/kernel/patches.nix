@@ -32,6 +32,11 @@ in
 
 rec {
 
+  bridge_stp_helper =
+    { name = "bridge-stp-helper";
+      patch = ./bridge-stp-helper.patch;
+    };
+
   no_xsave =
     { name = "no-xsave";
       patch = ./no-xsave.patch;
@@ -60,17 +65,17 @@ rec {
   };
 
   grsecurity_stable = grsecPatch
-    { kversion  = "3.14.26";
-      revision  = "201412071005";
+    { kversion  = "3.14.31";
+      revision  = "201501310705";
       branch    = "stable";
-      sha256    = "1dy98l1kqc20735385pahwksjqmsk4j5vd6d39l61y6rwc9iqfan";
+      sha256    = "19zm0ynjnk01qcp157v60s313fxm45dx9cc30rnpfig03r5p0la8";
     };
 
   grsecurity_unstable = grsecPatch
-    { kversion  = "3.17.6";
-      revision  = "201412071639";
+    { kversion  = "3.18.5";
+      revision  = "201501310706";
       branch    = "test";
-      sha256    = "182pr7whmr62bbbpn9dwcmmvvx68dbrkv33cb1dz7d29an7mx67w";
+      sha256    = "098jikfxh9sk097lrajyzf4x6dbxwwhpkirmqn25rn004y5y7ysn";
     };
 
   grsec_fix_path =
