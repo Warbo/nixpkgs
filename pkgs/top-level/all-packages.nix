@@ -670,8 +670,6 @@ let
 
   btrfsProgs = callPackage ../tools/filesystems/btrfsprogs { };
 
-  bugseverywhere = callPackage ../development/tools/bugseverywhere { };
-
   bwm_ng = callPackage ../tools/networking/bwm-ng { };
 
   byobu = callPackage ../tools/misc/byobu { };
@@ -10714,9 +10712,6 @@ let
   namecoin = callPackage ../applications/misc/namecoin { };
   namecoinqt = callPackage ../applications/misc/namecoin/qt.nix { };
 
-  panhandle = callPackage ../applications/office/panhandle { };
-  panpipe = callPackage ../applications/office/panpipe { };
-
   pcmanfm = callPackage ../applications/misc/pcmanfm { };
 
   shotcut = callPackage ../applications/video/shotcut { mlt = mlt-qt5; };
@@ -11518,8 +11513,6 @@ let
   weston = callPackage ../applications/window-managers/weston {
     freerdp = freerdpUnstable;
   };
-
-  whitey = callPackage ../applications/video/whitey { };
 
   windowmaker = callPackage ../applications/window-managers/windowmaker { };
 
@@ -12637,8 +12630,8 @@ let
   alt-ergo = callPackage ../applications/science/logic/alt-ergo {};
 
   coq = callPackage ../applications/science/logic/coq {
-    inherit (ocamlPackages) findlib lablgtk;
-    camlp5 = ocamlPackages.camlp5_transitional;
+    inherit (ocamlPackages_4_01_0) ocaml findlib lablgtk;
+    camlp5 = ocamlPackages_4_01_0.camlp5_transitional;
   };
 
   coq_HEAD = callPackage ../applications/science/logic/coq/HEAD.nix {
@@ -12681,8 +12674,6 @@ let
     mathcomp = callPackage ../development/coq-modules/mathcomp {};
 
     paco = callPackage ../development/coq-modules/paco {};
-
-    pidetop = callPackage ../development/coq-modules/pidetop {};
 
     ssreflect = callPackage ../development/coq-modules/ssreflect {};
 
